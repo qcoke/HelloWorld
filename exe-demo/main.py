@@ -1,13 +1,23 @@
 import sys
 
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox, QPushButton
+from PySide6.QtWidgets import (
+    QApplication,
+    QMainWindow,
+    QMessageBox,
+    QPushButton,
+    QRadioButton,
+)
 
 
 class MainWindow(QMainWindow):
     def __init__(self) -> None:
         super().__init__()
         self.setWindowTitle("HelloWorld")
+
+        self.radio = QRadioButton("选项", self)
+        self.radio.setStyleSheet("font-size: 16px;")
+        self.radio.move(20, 80)
 
         self.button = QPushButton("点我", self)
         self.button.setFixedSize(200, 80)
@@ -33,7 +43,10 @@ class MainWindow(QMainWindow):
 def main() -> None:
     app = QApplication(sys.argv)
     window = MainWindow()
-    window.showFullScreen()
+    # 模拟全屏：无边框 + 屏幕大小（跨平台兼容 Windows/macOS）
+    window.setWindowFlags(Qt.WindowType.FramelessWindowHint)
+    window.setGeometry(app.primaryScreen().geometry())
+    window.show()
     sys.exit(app.exec())
 
 
